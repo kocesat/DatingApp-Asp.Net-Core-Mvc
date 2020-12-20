@@ -28,6 +28,7 @@ namespace API
     public void ConfigureServices(IServiceCollection services)
     {
       // Register DbContext service here
+      // Added manually
       services.AddDbContext<DataContext>(options =>
       {
         options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
@@ -35,6 +36,10 @@ namespace API
       });
 
       services.AddControllers();
+
+      // Added manually
+      services.AddCors();
+
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -54,6 +59,10 @@ namespace API
       app.UseHttpsRedirection();
 
       app.UseRouting();
+
+      // Added manually
+      app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()
+        .WithOrigins("https://localhost:4200"));
 
       app.UseAuthorization();
 
