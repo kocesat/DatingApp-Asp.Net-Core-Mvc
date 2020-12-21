@@ -61,7 +61,7 @@ namespace API
       // Added manually
       app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()
         .WithOrigins("https://localhost:4200"));
-      // Added manually
+      // Added manually: it is important to put it before app.UseAuthorization() method
       app.UseAuthentication();
       app.UseAuthorization();
       app.UseEndpoints(endpoints =>
